@@ -3,6 +3,8 @@
  */
 package collection.exercise;
 
+import java.util.Iterator;
+
 /**
  * @author Jing
  *
@@ -13,8 +15,6 @@ public class JingArrayTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 		/*
 		 * size()
 		 */
@@ -51,8 +51,19 @@ public class JingArrayTest {
 		System.out.println(jingArray.add("11"));
 		System.out.println("The current size of the array is: " + jingArray.size());
 		System.out.println("The element in index " + " 15 is: " + jingArray.get(15));
-	
 		
+		/*for (Object it : jingArray){
+			
+			System.out.println(it);
+		}
+	*/
+		System.out.println(jingArray.get(0));
+		
+		Iterator it = jingArray.iterator();
+		
+		while (it.hasNext()){
+			System.out.println(it.next());
+		}
 		
 	
 	}

@@ -5,11 +5,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class JingArray implements List<Object> {
+public class JingArray implements List<Object>, Iterable<Object> {
 
-	int arrayCapacity = 10;
-	int currentPosition = 0;
-	Object[] array = new Object[arrayCapacity];
+	private int arrayCapacity;
+	private int currentPosition;
+	private static final double INCREASE_FACTOR = 1.5;
+	private Object[] array;
+
+	public JingArray() {
+
+		super();
+		this.arrayCapacity = 10;
+		this.currentPosition = 0;
+		this.array = new Object[arrayCapacity];
+
+	}
 
 	@Override
 	public boolean add(Object e) {
@@ -17,19 +27,25 @@ public class JingArray implements List<Object> {
 		 * Add element to an array based on the insertion sequence and increase
 		 * the capacity of the array when array is full
 		 */
-		boolean isElementAdded = false; // Return true if the element is added to the array successfully
+		boolean isElementAdded = false; // Return true if the element is added
+										// to the array successfully
 
-		array[currentPosition] = e; // Add element to the currently available index
-		currentPosition++; // Increase the currentPosition count by 1 after the element is added
+		array[currentPosition] = e; // Add element to the currently available
+									// index
+		currentPosition++; // Increase the currentPosition count by 1 after the
+							// element is added
 
-		Object[] newArray = null; // Create a new array to store the elements in the array when capacity changed
-		if (currentPosition == size()) {
+		Object[] newArray = null; // Create a new array to store the elements in
+									// the array when capacity changed
+		if (currentPosition == arrayCapacity) {
 
-			arrayCapacity = (currentPosition * 3 / 2) + 1;
-			newArray = new Object[arrayCapacity]; // Assign the new capacity to the new array
+			arrayCapacity = (int) (currentPosition * INCREASE_FACTOR) + 1;
+			newArray = new Object[arrayCapacity]; // Assign the new capacity to
+													// the new array
 			System.out.println(" Size of the new Array: " + newArray.length);
 
-			// Copy the elements from array to new array then set array = new array
+			// Copy the elements from array to new array then set array = new
+			// array
 			for (int i = 0; i < array.length; i++) {
 
 				newArray[i] = array[i];
@@ -168,7 +184,7 @@ public class JingArray implements List<Object> {
 	public int size() {
 		// Returns the size of the array
 
-		return array.length;
+		return currentPosition;
 	}
 
 	@Override
@@ -189,4 +205,23 @@ public class JingArray implements List<Object> {
 		return null;
 	}
 
+	// Adding the class here to return iterator type when iterator is called
+	public class JingIterator<T> implements Iterator<Object> {
+		int index = 0;
+
+		@Override
+		public boolean hasNext() {
+
+			return array[index] != null && index < arrayCapacity;
+
+		}
+
+		@Override
+		public Object next() {
+			index++;
+			T nextElement = (T) get(index);
+			return nextElement;
+		}
+
+	}
 }
