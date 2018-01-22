@@ -60,14 +60,11 @@ public class Node<T> {
 
 	public void setNext(Node next) {
 
-		if (index == 0) {
+	
 
-			next = null;
-		}
-
-		else {
+	
 			next = new Node(getData(index));
-		}
+	
 		
 		this.next = next;
 	}
@@ -82,15 +79,10 @@ public class Node<T> {
 
 	public void setPrev(Node prev) {
 
-		if (index == 0) {
-
-			prev = null;
-		}
-
-		else {
-			
+		
+		
 			prev = new Node(getData(index--));
-		}
+		
 
 		this.prev = prev;
 

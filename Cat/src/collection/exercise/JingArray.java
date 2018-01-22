@@ -212,15 +212,21 @@ public class JingArray implements List<Object>, Iterable<Object> {
 		@Override
 		public boolean hasNext() {
 
-			return array[index] != null && index < arrayCapacity;
+			if (array[index] != null){
+				return true;
+			}
+			else{
+				return false;
+				
+			}
 
 		}
 
 		@Override
 		public Object next() {
+			T currentIndex = (T) get(index);
 			index++;
-			T nextElement = (T) get(index);
-			return nextElement;
+			return currentIndex;
 		}
 
 	}
